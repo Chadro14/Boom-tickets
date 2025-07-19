@@ -1,0 +1,22 @@
+
+
+```json
+{
+  "name": "boom-tickets",
+  "version": "1.0.0",
+  "description": "Site de vente de billets concerts en ligne pour la RDC",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "body-parser": "^1.20.2",
+    "pdfkit": "^0.13.0",
+    "ejs": "^3.1.9"
+  }
+}
+```
+
+---

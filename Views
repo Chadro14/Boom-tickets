@@ -1,0 +1,103 @@
+views/index.ejs`
+
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Boom-tickets</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 900px; margin: auto; }
+  .event { border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
+  footer { text-align:center; font-style: italic; margin-top: 40px; }
+</style>
+</head>
+<body>
+  <h1>Boom-tickets</h1>
+  <p>Bienvenue à notre site web nous vendons des tickets pour tous des évènements de la République Démocratique du Congo.</p>
+
+  <% if(events.length === 0) { %>
+    <p>Aucun événement disponible pour le moment.</p>
+  <% } %>
+
+  <% events.forEach(event => { %>
+    <div class="event">
+<h3><%= event.name %></h3>
+      <p>Date : <%= event.date %> à <%= event.time %></p>
+      <p>Lieu : <%= event.location %></p>
+      <p>Prix : <%= event.price %> FC</p>
+
+      <form action="/order" method="post">
+        <input type="hidden" name="eventId" value="<%= event.id %>" />
+        <label>Votre nom : <input type="text" name="buyerName" required /></label><br/>
+        <label>Nombre de tickets :
+          <select name="quantity">
+            <% for(let i=1; i<=50; i++) { %>
+              <option value="<%= i %>"><%= i %></option>
+            <% } %>
+          </select>
+        </label><br/>
+        <button type="submit">Acheter</button>
+      </form>
+    </div>
+  <% }) %>
+
+  <p>Pour plus d'informations ou le mode de paiement, contactez-nous sur WhatsApp : <a href="https://wa.me/<%= adminWhatsapp.replace(/\+/g,'') %>" target="_blank"><%= adminWhatsapp %></a></p>
+
+  <% if(admin === '252006') { %>
+    <p><a href="/admin">Page Admin</a></p>
+  <% } else { %>
+    <p><a href="/admin/login">Connexion Admin</a></p>
+  <% } %>
+
+  <p><a href="/evaluation">Évaluation</a></p>
+
+  <footer>
+    <p>Numéro Admin: <%= adminWhatsapp %></p>
+    <p>Cette application est développée par Son Altesse Royal🌹</p>
+  </footer>
+</body>
+</html>
+```
+
+---
+
+`views/admin_login.ejs`
+
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Connexion Admin - Boom-tickets</title>
+</head>
+<body>
+  <h1>Connexion Admin</h1>
+  <% if(error) { %>
+    <p style="color:red;"><%= error %></p>
+  <% } %>
+  <form method="post" action="/admin/login">
+    <label>Code Admin : <input type="password" name="code" required /></label>
+    <button type="submit">Connexion</button>
+  </form>
+  <p><a href="/">Retour à l'accueil</a></p>
+</body>
+</html>
+```
+
+---
+
+`views/admin.ejs`
+
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Admin - Boom-tickets</title>
+</head>
+<body>
+  <h1>Page Admin - Ajouter Événement</h1>
+
+  <form method="post" action="/admin/event/add">
+    <label>Nom de l'événement: <input type="text" name="name" required /></label><br

@@ -1,0 +1,26 @@
+
+
+`views/index.ejs`
+
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Boom-tickets</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 900px; margin: auto; }
+  .event { border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
+  footer { text-align:center; font-style: italic; margin-top: 40px; }
+</style>
+</head>
+<body>
+  <h1>Boom-tickets</h1>
+  <p>Bienvenue à notre site web nous vendons des tickets pour tous des évènements de la République Démocratique du Congo.</p>
+
+  <% if(events.length === 0) { %>
+    <p>Aucun événement disponible pour le moment.</p>
+  <% } %>
+
+  <% events.forEach(event => { %>
+    <div class="event">

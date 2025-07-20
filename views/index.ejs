@@ -1,0 +1,29 @@
+
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Boom-tickets</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Boom-tickets</h1>
+  <p>Bienvenue à notre site web. Nous vendons des tickets pour tous les événements en République Démocratique du Congo.</p>
+  <% if (events.length === 0) { %>
+    <p>Aucun événement pour l’instant.</p>
+  <% } else { %>
+    <% events.forEach(ev => { %>
+      <div>
+        <h2><%= ev.name %></h2>
+        <p>Lieu : <%= ev.location %></p>
+        <p>Date : <%= ev.date %> à <%= ev.time %></p>
+        <p>Prix : <%= ev.price %> $</p>
+        <form method="post" action="/buy">
+          <input type="hidden" name="event" value="<%= ev.name %>">
+          <label for="quantity">Nombre de tickets :</label>
+          <select name="quantity">
+            <% for(let i = 1; i <= 50; i++) { %>
+              <option value="<%= i %>"><%= i %></option>
+            <% } %>
+          </select>
